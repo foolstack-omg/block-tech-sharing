@@ -1,15 +1,12 @@
 /**
  * 基于Optimism上的订单簿DEX Rubicon和 Velodrome Dex套利
- * 由于测试几次跑到code = 3前一直报 gas amount exceeds gas limit而未定位到原因，遂放弃
  * 个人评估代码套利逻辑完整度 90%
  * 所以这份代码主要是套利思路上的分享，有经验有能力的可能可以找到问题所在，完成完成套利
  */
 
-
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.0;
 pragma experimental ABIEncoderV2;
-
 
 library Babylonian {
     // credit for this implementation goes to
@@ -214,7 +211,7 @@ contract Rubicon {
         _owner = msg.sender;
         iRubiconMarket = IRubiconMarket(0x7a512d3609211e719737E82c7bb7271eC05Da70d);
 
-        // 是否需要Approve存疑
+        // 提前Approve
         IERC20(WETH).approve(address(iRubiconMarket), type(uint).max);
         IERC20(OP).approve(address(iRubiconMarket), type(uint).max);
         IERC20(USDC).approve(address(iRubiconMarket), type(uint).max);
@@ -254,21 +251,21 @@ contract Rubicon {
     function callback(address _sender, uint256 _amount0, uint256 _amount1, bytes memory _data) private {
         (Gem memory gem, uint256 maxTradeAmt, uint256 amountIn, uint256 code) = abi.decode(_data, (Gem, uint256, uint256, uint256));
         // 这里rubiconMarket会把pay代币转过去，已提前approve
-        require(iRubiconMarket.sellAllAmount(gem.pay, maxTradeAmt, gem.buy, 0) > amountIn, "Not Enough Fill Amt");
+        uint256 fillAmt = iRubiconMarket.sellAllAmount(gem.pay, maxTradeAmt, gem.buy, 0);
+        require(fillAmt > amountIn, "Not Enough Fill Amt");
+        uint256 profit = fillAmt - amountIn;
          require(code != 5, "5");
         // 判断是否把利润转换成WETH
         if(gem.buy != WETH) {
             if(gem.buy == OP) {
-                uint256 balance = IERC20(OP).balanceOf(address(this));
-                IERC20(OP).transfer(OPETH, balance);
-                uint256 amountEthOut = getAmountOut(OPETH, OP, balance);
+                IERC20(OP).transfer(OPETH, profit);
+                uint256 amountEthOut = getAmountOut(OPETH, OP, profit);
                 require(code != 6, "6");
                 IUniswapV2Pair(OPETH).swap(amountEthOut, 0, address(this), new bytes(0));
             }
             if(gem.buy == USDC) {
-                uint256 balance = IERC20(USDC).balanceOf(address(this));
-                IERC20(USDC).transfer(OPUSDC, balance);
-                uint256 amountEthOut = getAmountOut(ETHUSDC, USDC, balance);
+                IERC20(USDC).transfer(ETHUSDC, profit);
+                uint256 amountEthOut = getAmountOut(ETHUSDC, USDC, profit);
                 require(code != 7, "7");
                 IUniswapV2Pair(ETHUSDC).swap(amountEthOut, 0, address(this), new bytes(0));
             }
@@ -317,21 +314,25 @@ contract Rubicon {
                 revert("computeProfitMaximizingTrade Failed");
             }
             // offerPayAmt和amountIn中取最小值
-            maxTradeAmt = maxTradeAmt + (amountIn > offerPayAmt ? offerBuyAmt  : amountIn * offerBuyAmt / offerPayAmt);
-            // while(true) {
-            //     (bool atob, uint amountIn) = computeProfitMaximizingTrade(10**18, offerBuyAmt * 10**18 / offerPayAmt, reserveA, reserveB);
-            //     if(!(atob && amountIn > 0)) {
-            //         break;
-            //     }
-            //     // offerPayAmt和amountIn中取最小值
+            maxTradeAmt = maxTradeAmt + (amountIn > offerBuyAmt ? offerBuyAmt  : amountIn);
+            while(true) {
+                offerId = iRubiconMarket.getWorseOffer(offerId);
+                if(offerId == 0) {
+                    break;
+                }
+                (offerPayAmt, , offerBuyAmt, ) = iRubiconMarket.getOffer(offerId);
 
-            //     maxTradeAmt = maxTradeAmt + (amountIn > offerPayAmt ? offerPayAmt : amountIn);
-            //     offerId = iRubiconMarket.getWorseOffer(offerId);
-            //     if(offerId == 0) {
-            //         break;
-            //     }
-            //     (offerPayAmt, , offerBuyAmt, ) = iRubiconMarket.getOffer(offerId);
-            // }
+                (atob, amountIn) = computeProfitMaximizingTrade(offerBuyAmt, offerPayAmt, reserveA, reserveB);
+                if(amountIn == 0 || atob) {
+                    revert("computeProfitMaximizingTrade Failed");
+                }
+                if(amountIn > maxTradeAmt) {
+                    maxTradeAmt = maxTradeAmt + (amountIn - maxTradeAmt > offerBuyAmt ? offerBuyAmt : amountIn - maxTradeAmt);
+                } else {
+                    break;
+                }
+                
+            }
         }
         require(code != 2, "2");
         
@@ -346,7 +347,7 @@ contract Rubicon {
             swapAmountOut = maxTradeAmt * 20 / 10000 + maxTradeAmt;
 
             require(code != 11, "11");
-            swapAmountIn = getAmountIn(swapAmountOut, reserveA, reserveB);
+            swapAmountIn = getAmountIn(swapAmountOut, reserveB, reserveA);
             require(totalBuyAmt > swapAmountIn, "swapAmountIn >= totalBuyAmt");
              require(code != 12, "12");
             // 3. 计算max_trade_amt换取的 buy_amt - amountIn的利润 换算成eth后，是否大于gasAmount
@@ -412,7 +413,7 @@ contract Rubicon {
                 (aToB ? truePriceTokenB : truePriceTokenA).mul(9998)
             )
         );
-        uint256 rightSide = (aToB ? reserveA.mul(1000) : reserveB.mul(10000)) / 9998;
+        uint256 rightSide = (aToB ? reserveA.mul(10000) : reserveB.mul(10000)) / 9998;
 
         if (leftSide < rightSide) return (false, 0);
 
@@ -442,4 +443,3 @@ contract Rubicon {
         return string(buffer);
     }
 }
-
