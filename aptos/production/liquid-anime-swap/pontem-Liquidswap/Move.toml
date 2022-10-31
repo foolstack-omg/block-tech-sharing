@@ -1,0 +1,12 @@
+[package]
+name = "Liquidswap"
+version = "0.4.1"
+upgrade_policy = "immutable"
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "main"
+subdir = "aptos-move/framework/aptos-framework"
+
+[addresses]
+liquidswap = "0x190d44266241744264b964a37b8f09863167a12d3e70cda39376cfb4e3561e12"

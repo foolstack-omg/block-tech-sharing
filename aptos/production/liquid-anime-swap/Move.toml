@@ -1,0 +1,17 @@
+[package]
+name = "LiquidAnimeSwapV2"
+version = "0.0.2"
+
+[addresses]
+lmao = "0x34f20a6efd68b2a8969d63bfxxxxxxxxxxxxxxxxxxxxxx"
+
+[dependencies.AptosFramework]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'main'
+subdir = 'aptos-move/framework/aptos-framework'
+
+[dependencies.Liquidswap]
+local = "./pontem-Liquidswap"
+
+[dependencies.AnimeSwapV1]
+local = "./animeswap"
