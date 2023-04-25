@@ -9,3 +9,5 @@
     - Dexalot.sol(Avax上的Dexalot交易所套利合约)
     - Rubicon(Optimism上的交易所套利合约片段)
     - YakRouter.sol (Avax上YakSwap的套利合约)
+    - Joepeg.sol (Avax上TraderJoe NFT交易平台闪电贷套利)
+
