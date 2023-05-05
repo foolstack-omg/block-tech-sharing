@@ -1,0 +1,32 @@
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.3",
+    "eslint": "^8.39.0",
+    "ethers": "^5.6.5",
+    "hardhat": "^2.7.0"
+  },
+  "dependencies": {
+    "@binance/connector": "^1.10.0",
+    "axios": "^0.24.0",
+    "bignumber.js": "^9.0.2",
+    "bn.js": "^5.2.0",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
+    "keccak256": "^1.0.6",
+    "merkletreejs": "^0.3.9",
+    "mysql": "^2.18.1",
+    "redis": "^4.0.6",
+    "tronweb": "^4.2.0",
+    "web3": "^1.6.1"
+  }
+}
