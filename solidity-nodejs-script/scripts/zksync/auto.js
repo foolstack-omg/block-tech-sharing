@@ -17,6 +17,16 @@ Object.keys(airdrops).forEach(k => {
     wallets.push(new ethers.Wallet(airdrops[k], provider))
 })
 
+// CREATE TABLE `airdrops_activity` (
+//     `id` int unsigned NOT NULL AUTO_INCREMENT,
+//     `address` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+//     `next_time` bigint unsigned DEFAULT '0',
+//     `last_activity` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+//     `taskMintSquare` tinyint unsigned DEFAULT '0',
+//     PRIMARY KEY (`id`),
+//     UNIQUE KEY `only` (`address`) USING BTREE
+//   ) ENGINE=InnoDB AUTO_INCREMENT=216 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 /**
  * SyncSwap
  */
