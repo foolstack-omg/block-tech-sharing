@@ -1,7 +1,6 @@
 const { default: axios } = require('axios');
 const { join } = require('path')
 require('dotenv').config({ path: join(__dirname, '../..', '.env') });
-const { airdrops, wallets} = require('../../wallets/public.js')
 const ethers = require('ethers')
 const provider = new ethers.providers.StaticJsonRpcProvider("https://rpc.ankr.com/eth_goerli")
 
@@ -13,10 +12,8 @@ let walletSession = {
     "{请替换成私钥1}": "{请替换成与此钱包和Twitter绑定的ZetaChain关联的Cookie 「__Secure-next-auth.session-token」}", // 钱包1
     "{请替换成私钥2}": "{请替换成与此钱包和Twitter绑定的ZetaChain关联的Cookie 「__Secure-next-auth.session-token」}", // 钱包2
 }
-Object.keys(airdrops).forEach(k => {
-    if(walletSession.hasOwnProperty(pk)) {
-        walletss.push(new ethers.Wallet(pk, provider))
-    }
+Object.keys(walletSession).forEach(pk => {
+    walletss.push(new ethers.Wallet(pk, provider))
 })
 main()
 async function main() {
