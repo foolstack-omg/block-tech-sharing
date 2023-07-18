@@ -4,6 +4,7 @@
 - scripts
     - eip712 (Eip712使用示例代码)
     - merkle（Merkle proof使用示例代码）
+    - zeta（ZetaChain全自动刷积分脚本）
 
 ## Install
 0. 查阅 *package.json* 文件, 确认文件中不存在陌生的第三方依赖
