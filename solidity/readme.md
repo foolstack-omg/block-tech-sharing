@@ -1,5 +1,4 @@
 # Solidity 合约代码
-## 关注推特账号: @0xLmaoevd
 
 - learning
     - AccessingPrivateData.sol(读取合约的私有数据)

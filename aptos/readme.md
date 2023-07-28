@@ -1,5 +1,4 @@
 # Aptos 合约代码
-## 关注推特账号: @0xLmaoevd
 
 - learning
 - production
