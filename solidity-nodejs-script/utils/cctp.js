@@ -22,6 +22,13 @@ let $network_config = {
             messageTransmitter: '0x8186359af5f57fbb40c6b14a588d2a59c0c29880',
             usdcAddress: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E'
         },
+        OP: {
+            rpc: `https://rpc.ankr.com/optimism`,
+            domain: 2,
+            tokenMessenger: '0x2B4069517957735bE00ceE0fadAE88a26365528f',
+            messageTransmitter: '0x4d41f22c5a0e5c74090899e5a8fb597a8842b3e8',
+            usdcAddress: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85'
+        },
         Arbitrum: {
             rpc: `https://rpc.ankr.com/arbitrum`,
             domain: 3,
@@ -40,10 +47,17 @@ let $network_config = {
             usdcAddress: '0x07865c6e87b9f70255377e024ace6630c1eaa37f'
         },
         Avalanche: {
+            rpc: `https://rpc.ankr.com/avalanche_fuji`,
             domain: 1,
             tokenMessenger: '0xeb08f243e5d3fcff26a9e38ae5520a669f4019d0',
             messageTransmitter: '0xa9fb1b3009dcb79e2fe346c16a604b8fa8ae0a79',
             usdcAddress: '0x5425890298aed601595a70AB815c96711a31Bc65'
+        },
+        OP: {
+            domain: 2,
+            tokenMessenger: '0x23a04d5935ed8bc8e3eb78db3541f0abfb001c6e',
+            messageTransmitter: '0x9ff9a4da6f2157a9c82ce756f8fd7e0d75be8895',
+            usdcAddress: '0xe05606174bac4A6364B31bd0eCA4bf4dD368f8C6'
         },
         Arbitrum: {
             domain: 3,
