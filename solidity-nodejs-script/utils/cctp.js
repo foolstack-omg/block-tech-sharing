@@ -36,6 +36,13 @@ let $network_config = {
             messageTransmitter: '0xC30362313FBBA5cf9163F0bb16a0e01f01A896ca',
             usdcAddress: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831'
         },
+        Base: {
+            rpc: `https://base.drpc.org`,
+            domain: 6,
+            tokenMessenger: '0x1682Ae6375C4E4A97e4B583BC394c861A46D8962',
+            messageTransmitter: '0xAD09780d193884d503182aD4588450C416D6F9D4',
+            usdcAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        }
     },
     TestNet: {
         AttestationServiceApi: 'https://iris-api-sandbox.circle.com',
@@ -54,17 +61,26 @@ let $network_config = {
             usdcAddress: '0x5425890298aed601595a70AB815c96711a31Bc65'
         },
         OP: {
+            rpc: `https://goerli.optimism.io`,
             domain: 2,
             tokenMessenger: '0x23a04d5935ed8bc8e3eb78db3541f0abfb001c6e',
             messageTransmitter: '0x9ff9a4da6f2157a9c82ce756f8fd7e0d75be8895',
             usdcAddress: '0xe05606174bac4A6364B31bd0eCA4bf4dD368f8C6'
         },
         Arbitrum: {
+            rpc: `https://goerli-rollup.arbitrum.io/rpc`,
             domain: 3,
             tokenMessenger: '0x12dcfd3fe2e9eac2859fd1ed86d2ab8c5a2f9352',
             messageTransmitter: '0x109bc137cb64eab7c0b1dddd1edf341467dc2d35',
             usdcAddress: '0xfd064A18f3BF249cf1f87FC203E90D8f650f2d63'
         },
+        Base: {
+            rpc: `https://goerli.base.org`,
+            domain: 6,
+            tokenMessenger: '0x877b8e8c9e2383077809787ED6F279ce01CB4cc8',
+            messageTransmitter: '0x9ff9a4da6f2157A9c82CE756f8fD7E0d75be8895',
+            usdcAddress: '0xF175520C52418dfE19C8098071a252da48Cd1C19'
+        }
     }
 }
 
