@@ -1,0 +1,7 @@
+node_modules
+wallets
+.env
+runtime
+bin
+.vscode
+contracts
