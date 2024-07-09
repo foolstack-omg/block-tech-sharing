@@ -8,5 +8,7 @@
 - Solidity
 - Aptos
 - Sui
+- Nodejs自动化脚本
+- Web3 Frontend/Backend Scaffold(Web3全栈开发脚手架)
 
 
