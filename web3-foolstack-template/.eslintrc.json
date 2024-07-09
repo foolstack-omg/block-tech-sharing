@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "semi": [1, "never"],
+    "quotes": [1, "double", { "avoidEscape": true }],
+    "camelcase": [1, {"properties": "always"}],
+    "react/jsx-pascal-case": [1, { "allowAllCaps": true, "ignore": [] }],
+    "comma-dangle": [1, "never"],
+    "react/prop-types": "off"
+  }
+}
