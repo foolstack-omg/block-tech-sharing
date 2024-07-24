@@ -5,6 +5,7 @@
     - merkle（Merkle proof使用示例代码）
     - zeta（ZetaChain全自动刷积分脚本）
     - circle/cctp (Circle CCTP 全链统一流动USDC免手续费跨链脚本)
+    - avail (基于Pokadot波卡生态技术构建的Avail链，监控内存池抢跑归集代币)
 
 ## Install
 0. 查阅 *package.json* 文件, 确认文件中不存在陌生的第三方依赖
