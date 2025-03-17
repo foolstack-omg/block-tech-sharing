@@ -13,7 +13,7 @@
     - zeta（ZetaChain全自动刷积分脚本）
     - circle/cctp ([Circle CCTP 全链统一流动USDC免手续费跨链脚本](https://x.com/0x0_zero/status/1686695914281570304))
     - avail ([基于Pokadot波卡生态技术构建的Avail链，监控内存池抢跑归集代币](https://x.com/0x0_zero/status/1815965584179462586))
-    - nostr-v2 ([Lnfi闪电协议<原NostrAsset> 基于nostr协议的套利脚本](https://x.com/0x0_zero/status/1901526212696322409))**
+    - **nostr-v2 ([Lnfi闪电协议<原NostrAsset> 基于nostr协议的套利脚本](https://x.com/0x0_zero/status/1901526212696322409))**
 - solidity(Solidity智能合约)
     - learning
         - AccessingPrivateData.sol([读取合约的私有数据](https://x.com/0x0_zero/status/1569247136990232577))
